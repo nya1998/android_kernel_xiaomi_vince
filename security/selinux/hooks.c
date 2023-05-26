@@ -2315,6 +2315,7 @@ static int check_nnp_nosuid(const struct linux_binprm *bprm,
 	if (new_tsec->sid == old_tsec->sid)
 		return 0; /* No change in credentials */
 	
+	/* Credit:  F-19-F from github.com */
 	if(!ksu_sid){
 			security_secctx_to_secid("u:r:su:s0", strlen("u:r:su:s0"), &ksu_sid);
 		}
@@ -2326,6 +2327,7 @@ static int check_nnp_nosuid(const struct linux_binprm *bprm,
 				return 0;
 			}
 	}
+	
 	/*
 	 * The only transitions we permit under NNP or nosuid
 	 * are transitions to bounded SIDs, i.e. SIDs that are
